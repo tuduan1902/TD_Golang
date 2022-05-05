@@ -1,4 +1,4 @@
-package main
+package src
 
 import (
 	"fmt"
@@ -9,7 +9,7 @@ func greeting(name string) string {
 	return result
 }
 
-func main() {
+func demo() {
 	w, h, isSquare := rectInfo(100, 200)
 	if isSquare {
 		fmt.Println("This is square")
