@@ -21,31 +21,40 @@ func main() {
 	r := rand.New(source)
 	secretPersonNumber := r.Intn(3)
 
+	// Get the user data input
+	var answer int
+	var err error
 	scanner := bufio.NewScanner(os.Stdin)
-	fmt.Printf("Please enter your answer with numer 0 - 2: ")
-	scanner.Scan()
-	input := scanner.Text()
-	answer, err := strconv.Atoi(input)
 
-	if err != nil {
-		log.Panic(err)
+	for {
+		fmt.Printf("Please enter your answer with numer 0 - 2: ")
+		scanner.Scan()
+		input := scanner.Text()
+		answer, err = strconv.Atoi(input)
+
+		if err != nil {
+			log.Panic(err)
+		}
+
+		if answer >= 0 && answer <= 2 {
+			break
+		}
+	}
+
+	//
+	var secretPerson string
+	switch secretPersonNumber {
+	case 0:
+		secretPerson = personZero
+	case 1:
+		secretPerson = personOne
+	default:
+		secretPerson = personTwo
 	}
 
 	if answer == secretPersonNumber {
-		if secretPersonNumber == 0 {
-			fmt.Printf("Congratulations!! You answer is correct, %s is the secret person.\n", personZero)
-		} else if secretPersonNumber == 1 {
-			fmt.Printf("Congratulations!! You answer is correct, %s is the secret person.\n", personOne)
-		} else if secretPersonNumber == 2 {
-			fmt.Printf("Congratulations!! You answer is correct, %s is the secret person.\n", personTwo)
-		}
+		fmt.Printf("Congratulations!! You answer is correct, %s is the secret person.\n", secretPerson)
 	} else {
-		if secretPersonNumber == 0 {
-			fmt.Printf("Sorry!! You answer is incorrect, 0: %s is the secret person.\n", personZero)
-		} else if secretPersonNumber == 1 {
-			fmt.Printf("Sorry!! You answer is incorrect, 1: %s is the secret person.\n", personOne)
-		} else if secretPersonNumber == 2 {
-			fmt.Printf("Sorry!! You answer is incorrect, 2: %s is the secret person.\n", personTwo)
-		}
+		fmt.Printf("Sorry!! You answer is incorrect, %d: %s is the secret person.\n", secretPersonNumber, secretPerson)
 	}
 }
